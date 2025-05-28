@@ -1,11 +1,7 @@
-- name: Install dependencies
-  run: npm ci
-
-- name: Build Next.js app
-  run: npm run build
-
 name: Cypress Tests
+
 on: [push]
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -13,13 +9,22 @@ jobs:
       fail-fast: false
       matrix:
         containers: [1, 2]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Cypress install
+        uses: cypress-io/github-action@v6
+        with:
+          # Disable running of tests within install job
+          runTests: false
+          build: npm run build
+      
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: npm start           # Only start the server here
+          start: npm start
           wait-on: 'http://localhost:3000'
           record: true
           parallel: true
