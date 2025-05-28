@@ -1,3 +1,6 @@
+
+export {};
+
 describe('Shopify Store Tests', () => {
   
   beforeEach(() => {
@@ -129,5 +132,3 @@ describe('Shopify Store Tests', () => {
     );
   })
 })
-
-export {};
